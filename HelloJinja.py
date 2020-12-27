@@ -14,14 +14,15 @@ def UploadFile():
         f = request.files['file']
         if f.filename != '':
             f.save(f.filename)
-        #f.save(secure_filename(f.filename))
-        counter = 0
-        myfile=open(f.filename,"r")
-        data = myfile.read()
-        words = data.split()        
-        myfile.close()    
-        return str(len(words))
-    
+            myfile=open(f.filename,"r")
+            data = myfile.read()
+            words = data.split()        
+            myfile.close()    
+            return str(len(words))
+        else:
+            return "Upload some file"
+
+        
 
 
 if __name__ =='__main__':
