@@ -1,11 +1,27 @@
-from flask import Flask
+from flask import Flask,request
 from flask import render_template
+
 
 app = Flask(__name__)
 
 @app.route('/<name>')
 def HelloJinja(name):
     return render_template('Welcome.html', name=name)
+
+@app.route('/uploader', methods=['GET', 'POST'])
+def UploadFile():
+    if request.method == 'POST':
+        f = request.files['file']
+        if f.filename != '':
+            f.save(f.filename)
+        #f.save(secure_filename(f.filename))
+        counter = 0
+        myfile=open(f.filename,"r")
+        data = myfile.read()
+        words = data.split()        
+        myfile.close()    
+        return str(len(words))
+    
 
 
 if __name__ =='__main__':
